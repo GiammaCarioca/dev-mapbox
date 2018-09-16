@@ -1,6 +1,7 @@
 import React from 'react';
 import './styles/global';
+import Map from './components/Map';
 
-const App = () => <h1>Dev Mapbox for Rocketseat</h1>;
+const App = () => <Map />;
 
 export default App;
