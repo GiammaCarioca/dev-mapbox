@@ -13,6 +13,7 @@ export default class App extends Component {
       longitude: -43.18036,
       zoom: 14,
     },
+    allMarkers: [],
   };
 
   componentDidMount() {
@@ -35,9 +36,13 @@ export default class App extends Component {
   };
 
   handleMapClick = (e) => {
-    const [latitude, longitude] = e.lngLat;
+    const [longitude, latitude] = e.lngLat;
 
-    alert(`Latitude: ${latitude} \nLongitude: ${longitude}`);
+    // alert(`Latitude: ${latitude} \nLongitude: ${longitude}`);
+
+    this.setState({
+      allMarkers: [...this.state.allMarkers, { latitude, longitude }],
+    });
   };
 
   render() {
@@ -49,14 +54,17 @@ export default class App extends Component {
         mapboxApiAccessToken="pk.eyJ1IjoiZ2lhbW1hY2FyaW9jYSIsImEiOiJjamh5enQyODcwczJhM3FtcWZ4MWFtZWkzIn0.WYElwcfpht5zjidLQHk5EQ"
         onViewportChange={viewport => this.setState({ viewport })}
       >
-        <Marker
-          latitude={-22.964216}
-          longitude={-43.18036}
-          onClick={this.handleMapClick}
-          captureClick
-        >
-          <Pin src="https://avatars0.githubusercontent.com/u/23019676?v=4" alt="my location" />
-        </Marker>
+        {this.state.allMarkers.map((marker, index) => (
+          <Marker
+            key={index}
+            latitude={marker.latitude}
+            longitude={marker.longitude}
+            onClick={this.handleMapClick}
+            captureClick
+          >
+            <Pin src="https://avatars0.githubusercontent.com/u/23019676?v=4" alt="my location" />
+          </Marker>
+        ))}
       </MapGL>
     );
   }
