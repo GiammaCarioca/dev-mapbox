@@ -8,6 +8,11 @@ export const addDevSuccess = faveDevData => ({
   payload: { faveDevData },
 });
 
+export const addDevFailure = error => ({
+  type: 'ADD_DEV_FAILURE',
+  payload: { error },
+});
+
 export const removeDev = id => ({
   type: 'REMOVE_DEV',
   payload: { id },

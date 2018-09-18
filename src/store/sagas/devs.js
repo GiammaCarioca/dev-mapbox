@@ -1,21 +1,25 @@
 import { call, put } from 'redux-saga/effects';
 import api from '../../services/api';
 
-import { addDevSuccess } from '../actions/devs';
+import { addDevSuccess, addDevFailure } from '../actions/devs';
 
 export function* addFaveDev(action) {
-  const { data } = yield call(api.get, `/users/${action.payload.faveDev}`);
+  try {
+    const { data } = yield call(api.get, `/users/${action.payload.faveDev}`);
 
-  const { latitude, longitude } = action.payload;
+    const { latitude, longitude } = action.payload;
 
-  const faveDevData = {
-    id: data.id,
-    name: data.name,
-    username: data.login,
-    avatar: data.avatar_url,
-    latitude,
-    longitude,
-  };
+    const faveDevData = {
+      id: data.id,
+      name: data.name,
+      username: data.login,
+      avatar: data.avatar_url,
+      latitude,
+      longitude,
+    };
 
-  yield put(addDevSuccess(faveDevData));
+    yield put(addDevSuccess(faveDevData));
+  } catch (error) {
+    yield put(addDevFailure('Erro ao adicionar dev'));
+  }
 }

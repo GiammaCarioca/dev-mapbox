@@ -7,7 +7,7 @@ import { Container, Dev, DevInfo } from './styles';
 
 const Sidebar = ({ devs, removeDev }) => (
   <Container>
-    {devs.map(dev => (
+    {devs.data.map(dev => (
       <Dev key={dev.id}>
         <DevInfo>
           <img src={dev.avatar} alt="avatar" />

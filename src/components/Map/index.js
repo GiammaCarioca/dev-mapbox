@@ -63,7 +63,7 @@ class Map extends Component {
           mapboxApiAccessToken="pk.eyJ1IjoiZ2lhbW1hY2FyaW9jYSIsImEiOiJjamh5enQyODcwczJhM3FtcWZ4MWFtZWkzIn0.WYElwcfpht5zjidLQHk5EQ"
           onViewportChange={viewport => this.setState({ viewport })}
         >
-          {this.props.devs.map(dev => (
+          {this.props.devs.data.map(dev => (
             <Marker
               key={dev.id}
               latitude={dev.latitude}
