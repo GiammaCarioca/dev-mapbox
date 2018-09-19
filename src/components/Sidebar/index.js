@@ -31,14 +31,16 @@ const Sidebar = ({ devs, removeDev }) => (
 
 Sidebar.propTypes = {
   removeDev: PropTypes.func.isRequired,
-  devs: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-      username: PropTypes.string,
-      avatar: PropTypes.string,
-    }),
-  ).isRequired,
+  devs: PropTypes.shape({
+    data: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string,
+        username: PropTypes.string,
+        avatar: PropTypes.string,
+      }),
+    ),
+  }).isRequired,
 };
 
 const mapStateToProps = state => ({

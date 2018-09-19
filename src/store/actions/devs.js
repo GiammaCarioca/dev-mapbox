@@ -1,6 +1,6 @@
-export const addDevRequest = (faveDev, latitude, longitude) => ({
+export const addDevRequest = (faveDev, lat, lng) => ({
   type: 'ADD_DEV_REQUEST',
-  payload: { faveDev, latitude, longitude },
+  payload: { faveDev, lat, lng },
 });
 
 export const addDevSuccess = faveDevData => ({

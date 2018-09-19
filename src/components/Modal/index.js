@@ -1,4 +1,5 @@
 import React, { Fragment, Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as DevActions from '../../store/actions/devs';
@@ -7,22 +8,37 @@ import {
 } from './styles';
 
 class Modal extends Component {
+  static propTypes = {
+    toggleClick: PropTypes.func.isRequired,
+    addDevRequest: PropTypes.func.isRequired,
+    showModal: PropTypes.bool.isRequired,
+    latitude: PropTypes.number.isRequired,
+    longitude: PropTypes.number.isRequired,
+  };
+
   state = {
     userInput: '',
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.toggleClick();
-    const faveDev = this.state.userInput;
-    const latitude = this.props.latitude;
-    const longitude = this.props.longitude;
-    this.props.addDevRequest(faveDev, latitude, longitude);
+
+    const { userInput } = this.state;
+    const {
+      toggleClick, addDevRequest, latitude, longitude,
+    } = this.props;
+
+    toggleClick();
+    const faveDev = userInput;
+    const lat = latitude;
+    const lng = longitude;
+    addDevRequest(faveDev, lat, lng);
     this.setState({ userInput: '' });
   };
 
   render() {
-    const { showModal } = this.props;
+    const { showModal, toggleClick } = this.props;
+    const { userInput } = this.state;
 
     return (
       <Fragment>
@@ -35,11 +51,11 @@ class Modal extends Component {
                   <input
                     type="text"
                     placeholder="Usuário no Github"
-                    value={this.state.userInput}
+                    value={userInput}
                     onChange={e => this.setState({ userInput: e.target.value })}
                   />
                   <div>
-                    <button onClick={this.props.toggleClick} id="cancel" type="button">
+                    <button onClick={toggleClick} id="cancel" type="button">
                       Cancelar
                     </button>
                     <button id="save" type="submit">

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.aside`
-  height: 460px;
+  height: 80vh;
   min-width: 320px;
   border-radius: 5px;
   margin: 20px;
@@ -38,6 +38,7 @@ export const Dev = styled.ul`
 
 export const DevInfo = styled.div`
   display: flex;
+  max-width: 230px;
   align-items: center;
 
   img {

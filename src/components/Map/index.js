@@ -1,5 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import MapGL, { Marker } from 'react-map-gl';
+import PropTypes from 'prop-types';
+
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -10,6 +14,19 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { Pin } from './styles';
 
 class Map extends Component {
+  static propTypes = {
+    devs: PropTypes.shape({
+      data: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number,
+          avatar: PropTypes.string,
+          latitude: PropTypes.number,
+          longitude: PropTypes.number,
+        }),
+      ),
+    }).isRequired,
+  };
+
   state = {
     toggleModal: false,
     latitude: 0,
@@ -33,9 +50,11 @@ class Map extends Component {
   }
 
   _resize = () => {
+    const { viewport } = this.state;
+
     this.setState({
       viewport: {
-        ...this.state.viewport,
+        ...viewport,
         width: window.innerWidth,
         height: window.innerHeight,
       },
@@ -43,7 +62,8 @@ class Map extends Component {
   };
 
   handleToggleModal = () => {
-    this.setState({ toggleModal: !this.state.toggleModal });
+    const { toggleModal } = this.state;
+    this.setState({ toggleModal: !toggleModal });
   };
 
   handleMapClick = (e) => {
@@ -54,6 +74,9 @@ class Map extends Component {
   };
 
   render() {
+    const { devs } = this.props;
+    const { toggleModal, latitude, longitude } = this.state;
+
     return (
       <Fragment>
         <MapGL
@@ -63,7 +86,7 @@ class Map extends Component {
           mapboxApiAccessToken="pk.eyJ1IjoiZ2lhbW1hY2FyaW9jYSIsImEiOiJjamh5enQyODcwczJhM3FtcWZ4MWFtZWkzIn0.WYElwcfpht5zjidLQHk5EQ"
           onViewportChange={viewport => this.setState({ viewport })}
         >
-          {this.props.devs.data.map(dev => (
+          {devs.data.map(dev => (
             <Marker
               key={dev.id}
               latitude={dev.latitude}
@@ -77,11 +100,12 @@ class Map extends Component {
         </MapGL>
 
         <Modal
-          showModal={this.state.toggleModal}
+          showModal={toggleModal}
           toggleClick={this.handleToggleModal}
-          latitude={this.state.latitude}
-          longitude={this.state.longitude}
+          latitude={latitude}
+          longitude={longitude}
         />
+        <ToastContainer autoClose={2000} />
       </Fragment>
     );
   }

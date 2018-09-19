@@ -7,15 +7,15 @@ export function* addFaveDev(action) {
   try {
     const { data } = yield call(api.get, `/users/${action.payload.faveDev}`);
 
-    const { latitude, longitude } = action.payload;
+    const { lat, lng } = action.payload;
 
     const faveDevData = {
       id: data.id,
       name: data.name,
       username: data.login,
       avatar: data.avatar_url,
-      latitude,
-      longitude,
+      lat,
+      lng,
     };
 
     yield put(addDevSuccess(faveDevData));
