@@ -1,7 +1,7 @@
 import { all, takeLatest } from 'redux-saga/effects';
-
+import { Types as DevTypes } from '../ducks/devs';
 import { addFaveDev } from './devs';
 
 export default function* rootSaga() {
-  yield all([takeLatest('ADD_DEV_REQUEST', addFaveDev)]);
+  yield all([takeLatest(DevTypes.ADD_REQUEST, addFaveDev)]);
 }

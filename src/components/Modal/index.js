@@ -2,7 +2,8 @@ import React, { Fragment, Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as DevActions from '../../store/actions/devs';
+import { Creators as DevActions } from '../../store/ducks/devs';
+
 import {
   Overlay, Container, Content, Form,
 } from './styles';

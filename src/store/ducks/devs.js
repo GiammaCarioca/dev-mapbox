@@ -1,10 +1,25 @@
 import { toast } from 'react-toastify';
 
+/**
+ * Types
+ */
+
+export const Types = {
+  ADD_REQUEST: 'dev/ADD_REQUEST',
+  ADD_SUCCESS: 'dev/ADD_SUCCESS',
+  ADD_FAILURE: 'dev/ADD_FAILURE',
+  REMOVE: 'dev/REMOVE',
+};
+
+/**
+ * Reducers
+ */
+
 const INITIAL_STATE = { error: null, data: [] };
 
 export default function devs(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case 'ADD_DEV_SUCCESS':
+    case Types.ADD_SUCCESS:
       toast.success('Dev adicionado com sucesso!');
       return {
         ...state,
@@ -21,10 +36,10 @@ export default function devs(state = INITIAL_STATE, action) {
           },
         ],
       };
-    case 'ADD_DEV_FAILURE':
+    case Types.ADD_FAILURE:
       toast.error('Não foi possível adicionar dev!');
       return { ...state, error: action.payload.error };
-    case 'REMOVE_DEV':
+    case Types.REMOVE:
       toast.success('Dev removido com sucesso!');
       return {
         error: null,
@@ -34,3 +49,29 @@ export default function devs(state = INITIAL_STATE, action) {
       return state;
   }
 }
+
+/**
+ * Actions
+ */
+
+export const Creators = {
+  addDevRequest: (faveDev, lat, lng) => ({
+    type: Types.ADD_REQUEST,
+    payload: { faveDev, lat, lng },
+  }),
+
+  addDevSuccess: faveDevData => ({
+    type: Types.ADD_SUCCESS,
+    payload: { faveDevData },
+  }),
+
+  addDevFailure: error => ({
+    type: Types.ADD_FAILURE,
+    payload: { error },
+  }),
+
+  removeDev: id => ({
+    type: Types.REMOVE,
+    payload: { id },
+  }),
+};

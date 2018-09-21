@@ -1,7 +1,7 @@
 import { call, put } from 'redux-saga/effects';
 import api from '../../services/api';
 
-import { addDevSuccess, addDevFailure } from '../actions/devs';
+import { Creators as DevActions } from '../ducks/devs';
 
 export function* addFaveDev(action) {
   try {
@@ -18,8 +18,8 @@ export function* addFaveDev(action) {
       lng,
     };
 
-    yield put(addDevSuccess(faveDevData));
+    yield put(DevActions.addDevSuccess(faveDevData));
   } catch (error) {
-    yield put(addDevFailure('Erro ao adicionar dev'));
+    yield put(DevActions.addDevFailure('Erro ao adicionar dev'));
   }
 }

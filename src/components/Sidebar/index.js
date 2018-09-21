@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as devActions from '../../store/actions/devs';
+import { Creators as DevActions } from '../../store/ducks/devs';
 import { Container, Dev, DevInfo } from './styles';
 
 const Sidebar = ({ devs, removeDev }) => (
@@ -47,7 +47,7 @@ const mapStateToProps = state => ({
   devs: state.devs,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators(devActions, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators(DevActions, dispatch);
 
 export default connect(
   mapStateToProps,

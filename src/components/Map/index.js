@@ -7,8 +7,9 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Creators as DevActions } from '../../store/ducks/devs';
+
 import Modal from '../Modal';
-import * as devActions from '../../store/actions/devs';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { Pin } from './styles';
@@ -117,7 +118,7 @@ const mapStateToProps = state => ({
   longitude: state.longitude,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators(devActions, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators(DevActions, dispatch);
 
 export default connect(
   mapStateToProps,
